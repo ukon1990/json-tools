@@ -1,0 +1,10 @@
+.pre-wrap {
+  white-space: pre-wrap;
+}
+
+.half-width {
+  width: 50%;
+  @media screen and (max-device-width: 958px) {
+    width: 100%;
+  }
+}

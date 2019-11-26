@@ -1,0 +1,46 @@
+<form [formGroup]="form">
+  <mat-form-field class="half-width">
+    <textarea class="pre-wrap" matInput formControlName="slave" placeholder="From object"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="half-width">
+    <textarea class="pre-wrap" matInput formControlName="master" placeholder="Target object"></textarea>
+  </mat-form-field>
+</form>
+
+<p>
+  <em>This will display and write changes from the "from" object into the "target" object.</em>
+</p>
+
+<mat-tab-group *ngIf="differencesSlaveVersusMaster">
+  <mat-tab label="In import but missing from master">
+    <ngx-json-viewer *ngIf="differencesSlaveVersusMaster" [json]="differencesSlaveVersusMaster"></ngx-json-viewer>
+  </mat-tab>
+  <mat-tab label="In master but missing from import">
+    <ngx-json-viewer *ngIf="differencesMasterVersusSlave" [json]="differencesMasterVersusSlave"></ngx-json-viewer>
+  </mat-tab>
+  <mat-tab label="Merged">
+    <form [formGroup]="form">
+      <mat-form-field>
+        <mat-select formControlName="spacing" placeholder="Spacing">
+          <mat-option *ngFor="let option of spacingOptions" [value]="option.value">
+            {{ option.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-raised-button (click)="addToClipboard()" type="button">
+        Add to clipboard
+      </button>
+    </form>
+    <mat-tab-group>
+      <mat-tab label="Formatted">
+        <ngx-json-viewer *ngIf="overwritten" [json]="overwritten"></ngx-json-viewer>
+      </mat-tab>
+      <mat-tab label="Raw text">
+        <div class="pre-wrap" [innerHTML]="overwrittenText"></div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-tab>
+</mat-tab-group>
+
