@@ -32,11 +32,8 @@
       </mat-tab>
     </mat-tab-group>
   </mat-tab>
-  <mat-tab label="In import but missing from master">
+  <mat-tab label="Difference">
     <ngx-json-viewer *ngIf="differencesSlaveVersusMaster" [json]="differencesSlaveVersusMaster"></ngx-json-viewer>
-  </mat-tab>
-  <mat-tab label="In master but missing from import">
-    <ngx-json-viewer *ngIf="differencesMasterVersusSlave" [json]="differencesMasterVersusSlave"></ngx-json-viewer>
   </mat-tab>
 </mat-tab-group>
 
