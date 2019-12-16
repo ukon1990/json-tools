@@ -1,0 +1,13 @@
+<button *ngIf="!item.children.length; else dropdownTemplate"
+  mat-button
+  [routerLink]="item.routerLink"
+  routerLinkActive="mat-secondary">
+  {{ item.text }}
+</button>
+<ng-template #dropdownTemplate>
+  <app-menu-dropdown
+    [parentPath]="item.routerLink"
+    [items]="item.children">
+    {{ item.text }}
+  </app-menu-dropdown>
+</ng-template>

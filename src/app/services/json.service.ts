@@ -11,16 +11,22 @@ export class JSONService {
   constructor(private http: HttpClient) {
   }
 
-  loadMockFile(version: number): Promise<any> {
-    return this.http.get(`assets/${version ? 'develop' : 'discount'}.json`).toPromise();
+  loadMockFile(file: string): Promise<any> {
+    return this.http.get(`assets/example/${file}.json`).toPromise();
   }
 
+  /* istanbul ignore next */
   merge(master: object, slave: object): object {
+    return ObjectUtil.merge(slave, master);
+  }
+
+  /* istanbul ignore next */
+  overwrite(master: object, slave: object): object {
     return ObjectUtil.overwrite(slave, master, true);
   }
 
   getDifferences(master: object, slave: object): any {
-    const diffs: Difference[] =  ObjectUtil.getDifference(master, slave);
+    const diffs: Difference[] = ObjectUtil.getDifference(master, slave);
     const obj = {};
     diffs.forEach((o: Difference) => obj[o.name] = o);
     return obj;

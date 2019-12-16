@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {SubscriptionManager} from '@ukon1990/subscription-manager/dist/subscription-manager';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {JSONService} from '../../services/json.service';
@@ -9,6 +9,7 @@ import {JSONService} from '../../services/json.service';
   styleUrls: ['./viewer.component.scss']
 })
 export class ViewerComponent implements OnInit, OnDestroy {
+  @Input() actionType: 'merge' | 'overwrite' | 'difference';
   sm = new SubscriptionManager();
   form: FormGroup;
   master: object;
@@ -39,13 +40,10 @@ export class ViewerComponent implements OnInit, OnDestroy {
       } catch (e) {
         console.error(e);
       }
-      console.log('Differences', {
-        slave: this.differencesSlaveVersusMaster, master: this.differencesMasterVersusSlave
-      });
     });
-    this.service.loadMockFile(0)
+    this.service.loadMockFile('from')
       .then(data => this.form.controls.master.setValue(JSON.stringify(data)));
-    this.service.loadMockFile(1)
+    this.service.loadMockFile('to')
       .then(data => this.form.controls.slave.setValue((JSON.stringify(data))));
   }
 
@@ -70,7 +68,19 @@ export class ViewerComponent implements OnInit, OnDestroy {
   private setDifferencesAndMerge() {
     this.differencesSlaveVersusMaster = this.service.getDifferences(this.master, this.slave);
     this.differencesMasterVersusSlave = this.service.getDifferences(this.slave, this.master);
-    this.overwritten = this.service.merge(this.master, this.slave);
+
+    switch (this.actionType) {
+      case 'overwrite':
+        this.overwritten = this.service.overwrite(this.master, this.slave);
+        break;
+      case 'merge':
+        this.overwritten = this.service.merge(this.master, this.slave);
+        break;
+      default:
+        this.overwritten = undefined;
+        break;
+
+    }
   }
 
   private setOverwrittenText() {

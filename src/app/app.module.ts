@@ -11,21 +11,35 @@ import { ViewerComponent } from './components/viewer/viewer.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
 import {
-  MatButtonModule,
+  MatButtonModule, MatCardModule,
   MatExpansionModule,
   MatFormFieldModule,
-  MatInputModule,
+  MatInputModule, MatMenuModule,
   MatSelectModule,
   MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
 import { AboutComponent } from './components/about/about.component';
+import {HeaderComponent} from './components/header/header.component';
+import {MenuComponent} from './components/header/menu/menu.component';
+import {MenuItemComponent} from './components/header/menu/menu-item/menu-item.component';
+import {MenuDropdownComponent} from './components/header/menu/menu-dropdown/menu-dropdown.component';
+import { MergeComponent } from './components/merge/merge.component';
+import { OverwriteComponent } from './components/overwrite/overwrite.component';
+import { DifferenceComponent } from './components/difference/difference.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ViewerComponent,
-    AboutComponent
+    AboutComponent,
+    HeaderComponent,
+    MenuComponent,
+    MenuItemComponent,
+    MenuDropdownComponent,
+    MergeComponent,
+    OverwriteComponent,
+    DifferenceComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +55,9 @@ import { AboutComponent } from './components/about/about.component';
     MatToolbarModule,
     MatButtonModule,
     MatSelectModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatCardModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

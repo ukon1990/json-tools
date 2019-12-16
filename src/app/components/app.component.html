@@ -1,12 +1,14 @@
-<mat-toolbar>
-  <mat-toolbar-row>
-    <h1>JSON merge tool</h1>
-    <div>
-      <a mat-raised-button routerLink="">Tool</a>
-      <a mat-raised-button routerLink="about">About</a>
-    </div>
-  </mat-toolbar-row>
-</mat-toolbar>
+<app-header [appName]="appName"></app-header>
 <div class="container">
-  <router-outlet></router-outlet>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        {{ currentPage }}
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <router-outlet></router-outlet>
+    </mat-card-content>
+  </mat-card>
 </div>
