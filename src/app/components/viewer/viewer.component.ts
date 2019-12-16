@@ -1,6 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {SubscriptionManager} from '@ukon1990/subscription-manager/dist/subscription-manager';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {exampleData} from '../../data/example';
 import {JSONService} from '../../services/json.service';
 
 @Component({
@@ -24,8 +25,8 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder, private service: JSONService) {
     this.form = fb.group({
-      master: new FormControl(),
-      slave: new FormControl(),
+      master: new FormControl(JSON.stringify(exampleData.from)),
+      slave: new FormControl(JSON.stringify(exampleData.to)),
       spacing: new FormControl(2)
     });
   }
@@ -41,10 +42,6 @@ export class ViewerComponent implements OnInit, OnDestroy {
         console.error(e);
       }
     });
-    this.service.loadMockFile('from')
-      .then(data => this.form.controls.master.setValue(JSON.stringify(data)));
-    this.service.loadMockFile('to')
-      .then(data => this.form.controls.slave.setValue((JSON.stringify(data))));
   }
 
   ngOnDestroy(): void {
@@ -66,9 +63,6 @@ export class ViewerComponent implements OnInit, OnDestroy {
   }
 
   private setDifferencesAndMerge() {
-    this.differencesSlaveVersusMaster = this.service.getDifferences(this.master, this.slave);
-    this.differencesMasterVersusSlave = this.service.getDifferences(this.slave, this.master);
-
     switch (this.actionType) {
       case 'overwrite':
         this.overwritten = this.service.overwrite(this.master, this.slave);
@@ -81,6 +75,9 @@ export class ViewerComponent implements OnInit, OnDestroy {
         break;
 
     }
+
+    this.differencesSlaveVersusMaster = this.service.getDifferences(this.master, this.slave);
+    this.differencesMasterVersusSlave = this.service.getDifferences(this.slave, this.master);
   }
 
   private setOverwrittenText() {
