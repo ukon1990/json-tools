@@ -6,6 +6,7 @@ import {AppComponent} from './components/app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
+import {Angulartics2Module} from 'angulartics2';
 import {NgxJsonViewerModule} from 'ngx-json-viewer';
 import { ViewerComponent } from './components/viewer/viewer.component';
 import {HttpClientModule} from '@angular/common/http';
@@ -47,6 +48,7 @@ import { DifferenceComponent } from './components/difference/difference.componen
     BrowserAnimationsModule,
     NgxJsonViewerModule,
     HttpClientModule,
+    Angulartics2Module.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
     ReactiveFormsModule,
     MatFormFieldModule,
