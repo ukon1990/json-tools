@@ -25,23 +25,29 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder, private service: JSONService) {
     this.form = fb.group({
-      master: new FormControl(JSON.stringify(exampleData.from)),
-      slave: new FormControl(JSON.stringify(exampleData.to)),
+      master: new FormControl(),
+      slave: new FormControl(),
       spacing: new FormControl(2)
+    });
+    this.sm.add(this.form.valueChanges, data => {
+      this.handleChange(data);
     });
   }
 
   ngOnInit() {
-    this.sm.add(this.form.valueChanges, ({master, slave}) => {
-      try {
-        this.master = JSON.parse(master);
-        this.slave = JSON.parse(slave);
-        this.setDifferencesAndMerge();
-        this.setOverwrittenText();
-      } catch (e) {
-        console.error(e);
-      }
-    });
+    this.form.controls.master.setValue(JSON.stringify(exampleData.from));
+    this.form.controls.slave.setValue(JSON.stringify(exampleData.to));
+  }
+
+  private handleChange({master, slave}) {
+    try {
+      this.master = JSON.parse(master);
+      this.slave = JSON.parse(slave);
+      this.setDifferencesAndMerge();
+      this.setOverwrittenText();
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   ngOnDestroy(): void {
