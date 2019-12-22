@@ -32,7 +32,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private onNavigationChange(event: NavigationEnd) {
     const menuItem: MenuItem = RoutingUtil.getCurrentRoute(event.url);
-    console.log('onNavigationChange', event, menuItem);
     if (menuItem) {
       this.currentPage = menuItem.title;
       this.title.setTitle(`${this.appName} | ${ menuItem.title }`);

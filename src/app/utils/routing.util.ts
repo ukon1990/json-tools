@@ -62,7 +62,6 @@ export class RoutingUtil {
     /* Todo: See if this can be solved...
     if (canActivate) {
       for (let i = 0; i < canActivate.length; i++) {
-        console.log('route canActivate', canActivate[i]());
         if (!canActivate[i]()) {
           return false;
         }

@@ -14,7 +14,6 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     this.menuItems = RoutingUtil.getMenu();
-    console.log(this.menuItems);
   }
 
 }
